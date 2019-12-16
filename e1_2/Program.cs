@@ -139,7 +139,7 @@ namespace e1_2
 
     class Program
     {
-        //имена всех методов класса Plane
+        ////имена всех методов класса Plane
         static void ListMethods(Plane plane)
         {
             Type t = plane.GetType();
@@ -172,14 +172,18 @@ namespace e1_2
             }
 
             Program.ListMethods(pl);
-            //попытка вывести все классы, кторые реализуют интерфейс IFly
+            //вывести все классы, кторые реализуют интерфейс IFly
             var types = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(s => s.GetTypes())
                 .Where(p => typeof(IFly).IsAssignableFrom(p));
-            foreach (var item in types)
+            foreach (var type in types)
             {
-                Console.WriteLine(item);
+                if (!type.IsInterface)
+                {
+                    Console.WriteLine(type);
+                }
             }
+            
             Console.ReadKey();
         }
     }
